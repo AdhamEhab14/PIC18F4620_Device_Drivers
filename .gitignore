@@ -1,0 +1,13 @@
+# MPLAB X / XC8 (pic18/)
+pic18/build/
+pic18/dist/
+*.i
+*.ii
+
+# STM32CubeIDE (stm32/)
+Debug/
+Release/
+
+# OS junk
+.DS_Store
+Thumbs.db
