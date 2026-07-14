@@ -20,4 +20,8 @@ typedef signed long long sint64_t;
 typedef float float32_t;
 typedef double float64_t;
 
+#ifndef NULL_PTR
+#define NULL_PTR	((void*)0)
+#endif
+
 #endif /* STD_TYPES_H_ */

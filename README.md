@@ -19,16 +19,16 @@ Open `pic18/Makefile` / the `nbproject/` files directly in MPLAB X to build.
 
 ## stm32/ — STM32F103RB
 
-Bare-metal peripheral drivers for the STM32F103RB, built directly on CMSIS (no HAL), one STM32CubeIDE project per peripheral.
+Bare-metal peripheral drivers for the STM32F103RB (Nucleo, LQFP64/Medium-density), built directly on CMSIS register access (no HAL), as a single STM32CubeIDE project: [`stm32/drivers/`](stm32/drivers/).
 
-- [`stm32/nvic/`](stm32/nvic/) — Nested Vectored Interrupt Controller (`CortexM3_Core_NVIC`), plus the System Control Block (`CortexM3_Core_SCB`) it depends on for priority grouping.
-- [`stm32/rcc/`](stm32/rcc/) — Reset and Clock Control: system/bus clock configuration, peripheral clock gating.
-- [`stm32/systick/`](stm32/systick/) — SysTick timer: millisecond tick and blocking/non-blocking delay generation.
-- [`stm32/dma/`](stm32/dma/) — Direct Memory Access: memory-to-peripheral and memory-to-memory transfers.
-- [`stm32/gpio/`](stm32/gpio/) — General-Purpose I/O: pin mode, speed, and alternate-function configuration.
-- [`stm32/flash/`](stm32/flash/) — Flash memory: wait-state/latency configuration and read/write/erase operations.
+- **NVIC / SCB** (`Inc/NVIC/`) — Nested Vectored Interrupt Controller + System Control Block (priority grouping).
+- **RCC** (`Inc/RCC/`) — oscillators (HSE/HSI/LSE/LSI), PLL, system/bus clock configuration, peripheral clock gating.
+- **FLASH** (`Inc/FLASH/`) — wait-state/latency configuration, unlock/lock, page erase, mass erase, half-word/word programming.
+- **GPIO** (`Inc/GPIO/`) — pin mode (input/output/analog/AF), pull, speed, read/write/toggle.
+- **SysTick** (`Inc/SysTick/`) — millisecond tick with blocking delay (`HAL_Delay`), plus single-shot/periodic callback-driven intervals.
+- **DMA** (`Inc/DMA/`) — DMA1 channel configuration and memory-to-memory / peripheral transfers (this device has no DMA2).
 
-Each driver folder is a self-contained STM32CubeIDE project (`Inc/`, `Src/`, `Startup/`, linker script) — import it directly into CubeIDE to build and flash.
+All drivers share `Inc/Common/` (`Std_Types.h`, `HAL_Status.h`) and are aggregated by `Inc/CortexM3_Interface.h`. Later drivers build on earlier ones (GPIO/DMA need RCC's clock-enable macros; SysTick's delay accuracy depends on the RCC-configured HCLK), so they live in one project rather than isolated per-peripheral ones. Import `stm32/drivers/` directly into CubeIDE to build and flash.
 
 ## License
 

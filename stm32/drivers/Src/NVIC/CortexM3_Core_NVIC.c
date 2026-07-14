@@ -5,7 +5,7 @@
  *      Author: Adham
  */
 
-#include "CortexM3_Core_NVIC.h"
+#include "NVIC/CortexM3_Core_NVIC.h"
 
 
 /**
